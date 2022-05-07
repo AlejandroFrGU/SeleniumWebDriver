@@ -9,6 +9,7 @@ import static org.hamcrest.core.IsNot.not;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -20,16 +21,22 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.Keys;
-import java.util.*;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 public class RegistrodeusuarioCCTest {
   private WebDriver driver;
   private Map<String, Object> vars;
   JavascriptExecutor js;
   @Before
   public void setUp() {
-    driver = new ChromeDriver();
+	  System.setProperty("webdriver.gecko.driver", "drivers/geckodriver.exe"); 
+		//System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
+    //driver = new ChromeDriver();
+	  FirefoxOptions firefoxOptions = new FirefoxOptions(); 
+	    firefoxOptions.setHeadless(true); 
+	    driver = new FirefoxDriver(firefoxOptions);
     js = (JavascriptExecutor) driver;
     vars = new HashMap<String, Object>();
   }
@@ -38,7 +45,7 @@ public class RegistrodeusuarioCCTest {
     driver.quit();
   }
   @Test
-  public void registrodeusuarioCC() {
+  public void registrodeusuarioCC() throws InterruptedException {
     // Test name: Registro de usuario(CC)
     // Step # | name | target | value
     // 1 | open | / | 
@@ -75,6 +82,11 @@ public class RegistrodeusuarioCCTest {
     driver.findElement(By.id("terms-agreement")).click();
     // 17 | click | css=.ajax-button | 
     driver.findElement(By.cssSelector(".ajax-button")).click();
+    try {
+        Thread.sleep(1000);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
     // 18 | click | id=header-account-menu-link | 
     driver.findElement(By.id("header-account-menu-link")).click();
     // 19 | click | linkText=Sign out | 

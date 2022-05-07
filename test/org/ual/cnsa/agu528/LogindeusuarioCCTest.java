@@ -9,6 +9,7 @@ import static org.hamcrest.core.IsNot.not;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -29,9 +30,15 @@ public class LogindeusuarioCCTest {
   JavascriptExecutor js;
   @Before
   public void setUp() {
-    driver = new ChromeDriver();
+	  System.setProperty("webdriver.gecko.driver", "drivers/geckodriver.exe"); 
+			//System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
+	    //driver = new ChromeDriver();
+		  FirefoxOptions firefoxOptions = new FirefoxOptions(); 
+		    firefoxOptions.setHeadless(true); 
+		    driver = new FirefoxDriver(firefoxOptions);
     js = (JavascriptExecutor) driver;
     vars = new HashMap<String, Object>();
+    //Requiere la cuenta ual1@ual.es con pass ual123 creada con anterioridad
   }
   @After
   public void tearDown() {
@@ -46,40 +53,18 @@ public class LogindeusuarioCCTest {
     // 2 | setWindowSize | 813x728 | 
     driver.manage().window().setSize(new Dimension(813, 728));
     // 3 | click | linkText=Sign up | 
-    driver.findElement(By.linkText("Sign up")).click();
-    // 4 | click | id=full-name | 
-    driver.findElement(By.id("full-name")).click();
-    // 5 | executeScript | return "ual-" + Math.floor(Math.random()*1500000) | namerandom
-    vars.put("namerandom", js.executeScript("return \"ual-\" + Math.floor(Math.random()*1500000)"));
-    // 6 | type | id=full-name | ${namerandom}
-    driver.findElement(By.id("full-name")).sendKeys(vars.get("namerandom").toString());
-    // 7 | executeScript | return "ual-" + Math.floor(Math.random()*1500000)+"@ual.es" | emailrandom
-    vars.put("emailrandom", js.executeScript("return \"ual-\" + Math.floor(Math.random()*1500000)+\"@ual.es\""));
-    // 8 | type | id=email-address | ${emailrandom}
-    driver.findElement(By.id("email-address")).sendKeys(vars.get("emailrandom").toString());
-    // 9 | type | id=password | password123
-    driver.findElement(By.id("password")).sendKeys("password123");
-    // 10 | type | id=confirm-password | password123
-    driver.findElement(By.id("confirm-password")).sendKeys("password123");
-    // 11 | click | id=terms-agreement | 
-    driver.findElement(By.id("terms-agreement")).click();
-    // 12 | click | css=.ajax-button | 
-    driver.findElement(By.cssSelector(".ajax-button")).click();
-    // 13 | click | id=header-account-menu-link | 
-    driver.findElement(By.id("header-account-menu-link")).click();
-    // 14 | click | linkText=Sign out | 
-    driver.findElement(By.linkText("Sign out")).click();
     // 15 | click | linkText=Log in | 
     driver.findElement(By.linkText("Log in")).click();
-    // 16 | click | css=.form-group:nth-child(1) > .form-control | 
-    driver.findElement(By.cssSelector(".form-group:nth-child(1) > .form-control")).click();
-    // 17 | type | css=.form-group:nth-child(1) > .form-control | ${emailrandom}
-    driver.findElement(By.cssSelector(".form-group:nth-child(1) > .form-control")).sendKeys(vars.get("emailrandom").toString());
-    // 18 | type | css=.form-group:nth-child(2) > .form-control | password123
-    driver.findElement(By.cssSelector(".form-group:nth-child(2) > .form-control")).sendKeys("password123");
+    driver.findElement(By.cssSelector(".form-group:nth-child(1) > .form-control")).sendKeys("ual1@ual.es"); 
+    driver.findElement(By.cssSelector(".form-group:nth-child(2) > .form-control")).sendKeys("ual123");
     // 19 | click | css=.ajax-button | 
     driver.findElement(By.cssSelector(".ajax-button")).click();
     // 20 | click | id=header-account-menu-link | 
+    try {
+        Thread.sleep(1000);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
     driver.findElement(By.id("header-account-menu-link")).click();
     // 21 | click | linkText=Sign out | 
     driver.findElement(By.linkText("Sign out")).click();

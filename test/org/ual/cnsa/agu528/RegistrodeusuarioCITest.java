@@ -9,6 +9,7 @@ import static org.hamcrest.core.IsNot.not;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -29,7 +30,12 @@ public class RegistrodeusuarioCITest {
   JavascriptExecutor js;
   @Before
   public void setUp() {
-    driver = new ChromeDriver();
+	  System.setProperty("webdriver.gecko.driver", "drivers/geckodriver.exe"); 
+			//System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
+	    //driver = new ChromeDriver();
+		  FirefoxOptions firefoxOptions = new FirefoxOptions(); 
+		    firefoxOptions.setHeadless(true); 
+		    driver = new FirefoxDriver(firefoxOptions);
     js = (JavascriptExecutor) driver;
     vars = new HashMap<String, Object>();
   }
@@ -78,6 +84,11 @@ public class RegistrodeusuarioCITest {
     // 18 | click | css=.button-text | 
     driver.findElement(By.cssSelector(".button-text")).click();
     // 19 | assertText | css=.text-danger | It looks like there's already an account with your email address. If you forgot your password, you can recover it here.
-    assertThat(driver.findElement(By.cssSelector(".text-danger")).getText(), is("It looks like there\\\'s already an account with your email address. If you forgot your password, you can recover it here."));
+    try {
+        Thread.sleep(1000);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    assertThat(driver.findElement(By.cssSelector(".text-danger")).getText(), is("It looks like there's already an account with your email address. If you forgot your password, you can recover it here."));
   }
 }

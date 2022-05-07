@@ -9,6 +9,7 @@ import static org.hamcrest.core.IsNot.not;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -29,7 +30,12 @@ public class LogindeusuarioCITest {
   JavascriptExecutor js;
   @Before
   public void setUp() {
-    driver = new ChromeDriver();
+	  System.setProperty("webdriver.gecko.driver", "drivers/geckodriver.exe"); 
+			//System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
+	    //driver = new ChromeDriver();
+		  FirefoxOptions firefoxOptions = new FirefoxOptions(); 
+		    firefoxOptions.setHeadless(true); 
+		    driver = new FirefoxDriver(firefoxOptions);
     js = (JavascriptExecutor) driver;
     vars = new HashMap<String, Object>();
   }
@@ -72,13 +78,12 @@ public class LogindeusuarioCITest {
       builder.moveToElement(element).perform();
     }
     // 14 | mouseOut | css=.ajax-button | 
-    {
-      WebElement element = driver.findElement(By.tagName("body"));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element, 0, 0).perform();
-    }
+ 
     // 15 | click | css=.text-danger | 
-    driver.findElement(By.cssSelector(".text-danger")).click();
+    {
+		WebDriverWait wait = new WebDriverWait(driver, 30);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".text-danger")));
+	}
     // 16 | assertText | css=.text-danger | The credentials you entered are not associated with an account. Please check your email and/or password and try again.
     assertThat(driver.findElement(By.cssSelector(".text-danger")).getText(), is("The credentials you entered are not associated with an account. Please check your email and/or password and try again."));
   }
