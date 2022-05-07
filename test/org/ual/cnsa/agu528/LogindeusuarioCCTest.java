@@ -30,7 +30,7 @@ public class LogindeusuarioCCTest {
   JavascriptExecutor js;
   @Before
   public void setUp() {
-	  System.setProperty("webdriver.gecko.driver", "drivers/geckodriver.exe"); 
+	  //System.setProperty("webdriver.gecko.driver", "drivers/geckodriver.exe"); 
 			//System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
 	    //driver = new ChromeDriver();
 		  FirefoxOptions firefoxOptions = new FirefoxOptions(); 
