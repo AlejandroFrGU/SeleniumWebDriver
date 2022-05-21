@@ -33,17 +33,17 @@ public class EditarperfilCITest {
 
 	@Before
 	public void setUp() {
-		//System.setProperty("webdriver.gecko.driver", "drivers/geckodriver.exe");
+		 //System.setProperty("webdriver.gecko.driver", "drivers/geckodriver.exe");
 		// System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
 		// driver = new ChromeDriver();
 		FirefoxOptions firefoxOptions = new FirefoxOptions();
 		firefoxOptions.setHeadless(true);
-		//firefoxOptions.addArguments("--headless");
-		//firefoxOptions.addArguments("--width=1920");
-		//firefoxOptions.addArguments("--height=1080");
-		
-		//firefoxOptions.addArguments("window-size=1440,900");
-		//driver.manage().window().setSize(new Dimension(1080, 824));
+		// firefoxOptions.addArguments("--headless");
+		firefoxOptions.addArguments("--width=426");
+		firefoxOptions.addArguments("--height=728");
+
+		// firefoxOptions.addArguments("window-size=1440,900");
+		// driver.manage().window().setSize(new Dimension(1080, 824));
 		driver = new FirefoxDriver(firefoxOptions);
 		driver.manage().window().maximize();
 		js = (JavascriptExecutor) driver;
@@ -63,14 +63,32 @@ public class EditarperfilCITest {
 		// 1 | open | / |
 		driver.get("http://webapps.alejandrogacles.tech:8080//");
 		// 2 | setWindowSize | 1009x728 |
-		driver.manage().window().setSize(new Dimension(1070, 728));
+		driver.manage().window().setSize(new Dimension(426, 728));
 		// 3 | click | linkText=Log in |
+		{
+			WebDriverWait wait = new WebDriverWait(driver, 30);
+			wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Log in")));
+		}
+		try {
+	        Thread.sleep(1000);
+	      } catch (InterruptedException e) {
+	        e.printStackTrace();
+	      }
 		driver.findElement(By.linkText("Log in")).click();
 		// 4 | click | css=.form-group:nth-child(1) > .form-control |
 		// driver.findElement(By.cssSelector(".form-group:nth-child(1) >
 		// .form-control")).click();
+		{
+			WebDriverWait wait = new WebDriverWait(driver, 30);
+			wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".form-group:nth-child(1) > .form-control")));
+		}
+		try {
+	        Thread.sleep(1000);
+	      } catch (InterruptedException e) {
+	        e.printStackTrace();
+	      }
 		// 5 | type | css=.form-group:nth-child(1) > .form-control | user1@ual.es
-		driver.findElement(By.cssSelector(".form-group:nth-child(1) > .form-control")).sendKeys("ual1@ual.es");
+		driver.findElement(By.cssSelector(".form-group:nth-child(1) > .form-control")).sendKeys("ual2@ual.es");
 		// 6 | type | css=.form-group:nth-child(2) > .form-control | user123
 		driver.findElement(By.cssSelector(".form-group:nth-child(2) > .form-control")).sendKeys("ual123");
 		// 7 | click | css=.button-text |
@@ -79,26 +97,35 @@ public class EditarperfilCITest {
 		// 8 | mouseOut | css=.button-loader |
 		{
 			WebDriverWait wait = new WebDriverWait(driver, 30);
-			wait.until(ExpectedConditions.elementToBeClickable(By.id("header-account-menu-link")));
+			wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Account Settings")));
 		}
-		// 9 | click | id=header-account-menu-link |
-		driver.findElement(By.id("header-account-menu-link")).click();
-		{
-			WebDriverWait wait = new WebDriverWait(driver, 30);
-			wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Settings")));
-		}
+		try {
+	        Thread.sleep(1000);
+	      } catch (InterruptedException e) {
+	        e.printStackTrace();
+	      }
 		// 10 | click | linkText=Settings |
-		driver.findElement(By.linkText("Settings")).click();
+		driver.findElement(By.linkText("Account Settings")).click();
 		// 11 | click | linkText=Edit profile |
 		{
 			WebDriverWait wait = new WebDriverWait(driver, 30);
 			wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Edit profile")));
 		}
+		try {
+	        Thread.sleep(1000);
+	      } catch (InterruptedException e) {
+	        e.printStackTrace();
+	      }
 		driver.findElement(By.linkText("Edit profile")).click();
 		{
 			WebDriverWait wait = new WebDriverWait(driver, 30);
 			wait.until(ExpectedConditions.elementToBeClickable(By.id("full-name")));
 		}
+		try {
+	        Thread.sleep(1000);
+	      } catch (InterruptedException e) {
+	        e.printStackTrace();
+	      }
 		driver.findElement(By.id("full-name")).sendKeys(Keys.chord(Keys.CONTROL, "a"));
 		driver.findElement(By.id("full-name")).sendKeys(Keys.chord(Keys.DELETE));
 
@@ -110,24 +137,31 @@ public class EditarperfilCITest {
 
 		// 13 | click | css=.button-text |
 		driver.findElement(By.cssSelector(".button-text")).click();
-		// 14 | mouseOver | css=.button-text |
-		{
-			WebElement element = driver.findElement(By.cssSelector(".button-text"));
-			Actions builder = new Actions(driver);
-			builder.moveToElement(element).perform();
-		}
-		// 15 | mouseOut | css=.button-text |
-		{
-			WebElement element = driver.findElement(By.tagName("body"));
-			Actions builder = new Actions(driver);
-			builder.moveToElement(element, 0, 0).perform();
-		}
 		// 16 | click | css=.row:nth-child(1) > .col-sm-6:nth-child(1) |
 		// driver.findElement(By.cssSelector(".row:nth-child(1) >
 		// .col-sm-6:nth-child(1)")).click();
+		{
+			WebDriverWait wait = new WebDriverWait(driver, 30);
+			wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".invalid-feedback")));
+		}
+		try {
+	        Thread.sleep(1000);
+	      } catch (InterruptedException e) {
+	        e.printStackTrace();
+	      }
 		// 17 | assertText | css=.invalid-feedback | Please enter your full name.
 		assertThat(driver.findElement(By.cssSelector(".invalid-feedback")).getText(),
 				is("Please enter your full name."));
+		{
+			WebDriverWait wait = new WebDriverWait(driver, 30);
+			wait.until(ExpectedConditions
+					.elementToBeClickable(By.cssSelector(".col-sm-6:nth-child(2) .invalid-feedback")));
+		}
+		try {
+	        Thread.sleep(1000);
+	      } catch (InterruptedException e) {
+	        e.printStackTrace();
+	      }
 		assertThat(driver.findElement(By.cssSelector(".col-sm-6:nth-child(2) .invalid-feedback")).getText(),
 				is("Please enter a valid email address."));
 		// 18 | click | css=.row:nth-child(1) > .col-sm-6:nth-child(2) |
@@ -136,17 +170,9 @@ public class EditarperfilCITest {
 		// 19 | click | css=.button-text |
 		driver.findElement(By.cssSelector(".button-text")).click();
 		// 20 | mouseOver | css=.button-text |
-		{
-			WebElement element = driver.findElement(By.cssSelector(".button-text"));
-			Actions builder = new Actions(driver);
-			builder.moveToElement(element).perform();
-		}
+
 		// 21 | mouseOut | css=.button-text |
-		{
-			WebElement element = driver.findElement(By.tagName("body"));
-			Actions builder = new Actions(driver);
-			builder.moveToElement(element, 0, 0).perform();
-		}
+
 		// 22 | click | css=.row:nth-child(1) > .col-sm-6:nth-child(2) |
 		// driver.findElement(By.cssSelector(".row:nth-child(1) >
 		// .col-sm-6:nth-child(2)")).click();
@@ -154,22 +180,16 @@ public class EditarperfilCITest {
 		// a valid email address.
 
 		// 24 | click | linkText=Cancel |
-
-		{
-			WebElement element = driver.findElement(By.tagName("body"));
-			Actions builder = new Actions(driver);
-			builder.moveToElement(element, 0, 0).perform();
-		}
 		// 40 | click | id=header-account-menu-link |
-		{
-			WebDriverWait wait = new WebDriverWait(driver, 30);
-			wait.until(ExpectedConditions.elementToBeClickable(By.id("header-account-menu-link")));
-		}
-		driver.findElement(By.id("header-account-menu-link")).click();
 		{
 			WebDriverWait wait = new WebDriverWait(driver, 30);
 			wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Sign out")));
 		}
+		try {
+	        Thread.sleep(1000);
+	      } catch (InterruptedException e) {
+	        e.printStackTrace();
+	      }
 		driver.findElement(By.linkText("Sign out")).click();
 	}
 }

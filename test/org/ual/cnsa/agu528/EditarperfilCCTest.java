@@ -40,8 +40,8 @@ public class EditarperfilCCTest {
 		FirefoxOptions firefoxOptions = new FirefoxOptions();
 		firefoxOptions.setHeadless(true);
 		//firefoxOptions.addArguments("--headless");
-		//firefoxOptions.addArguments("--width=1920");
-		//firefoxOptions.addArguments("--height=1080");
+		firefoxOptions.addArguments("--width=426");
+		firefoxOptions.addArguments("--height=728");
 		
 		//firefoxOptions.addArguments("window-size=1440,900");
 		//driver.manage().window().setSize(new Dimension(1080, 824));
@@ -63,13 +63,31 @@ public class EditarperfilCCTest {
 		// 1 | open | / |
 		driver.get("http://webapps.alejandrogacles.tech:8080//");
 		// 2 | setWindowSize | 697x728 |
-		driver.manage().window().setSize(new Dimension(1070, 728));
+		driver.manage().window().setSize(new Dimension(426, 728));
 		// 3 | click | linkText=Log in |
+		{
+			WebDriverWait wait = new WebDriverWait(driver, 30);
+			wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Log in")));
+		}
+		try {
+	        Thread.sleep(1000);
+	      } catch (InterruptedException e) {
+	        e.printStackTrace();
+	      }
 		driver.findElement(By.linkText("Log in")).click();
 		// 4 | click | css=.form-group:nth-child(1) > .form-control |
 		//driver.findElement(By.cssSelector(".form-group:nth-child(1) > .form-control")).click();
 		// 5 | type | css=.form-group:nth-child(1) > .form-control | user1@ual.es
-		driver.findElement(By.cssSelector(".form-group:nth-child(1) > .form-control")).sendKeys("ual1@ual.es");
+		{
+			WebDriverWait wait = new WebDriverWait(driver, 30);
+			wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".form-group:nth-child(1) > .form-control")));
+		}
+		try {
+	        Thread.sleep(1000);
+	      } catch (InterruptedException e) {
+	        e.printStackTrace();
+	      }
+		driver.findElement(By.cssSelector(".form-group:nth-child(1) > .form-control")).sendKeys("ual2@ual.es");
 		// 6 | type | css=.form-group:nth-child(2) > .form-control | user123
 		driver.findElement(By.cssSelector(".form-group:nth-child(2) > .form-control")).sendKeys("ual123");
 		// 7 | click | css=.button-text |
@@ -77,65 +95,89 @@ public class EditarperfilCCTest {
 		// 8 | click | id=header-account-menu-link |
 		{
 			WebDriverWait wait = new WebDriverWait(driver, 30);
-			wait.until(ExpectedConditions.elementToBeClickable(By.id("header-account-menu-link")));
+			wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Account Settings")));
 		}
-		driver.findElement(By.id("header-account-menu-link")).click();
-		{
-			WebDriverWait wait = new WebDriverWait(driver, 30);
-			wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Settings")));
-		}
+		try {
+	        Thread.sleep(1000);
+	      } catch (InterruptedException e) {
+	        e.printStackTrace();
+	      }
 		// 9 | click | linkText=Settings |
-		System.out.println("W1");
-		driver.findElement(By.linkText("Settings")).click();
+		driver.findElement(By.linkText("Account Settings")).click();
 		// 10 | click | linkText=Edit profile |
 		{
 			WebDriverWait wait = new WebDriverWait(driver, 30);
 			wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Edit profile")));
 		}
+		try {
+	        Thread.sleep(1000);
+	      } catch (InterruptedException e) {
+	        e.printStackTrace();
+	      }
 		driver.findElement(By.linkText("Edit profile")).click();
+		{
+			WebDriverWait wait = new WebDriverWait(driver, 30);
+			wait.until(ExpectedConditions.elementToBeClickable(By.id("full-name")));
+		}
+		try {
+	        Thread.sleep(1000);
+	      } catch (InterruptedException e) {
+	        e.printStackTrace();
+	      }
 		// 11 | type | id=full-name | user1234
 		driver.findElement(By.id("full-name")).sendKeys(Keys.chord(Keys.CONTROL, "a"));
 		driver.findElement(By.id("full-name")).sendKeys(Keys.chord(Keys.DELETE));
-		driver.findElement(By.id("full-name")).sendKeys("ual12");
+		driver.findElement(By.id("full-name")).sendKeys("ual22");
 		// 12 | click | css=.button-text |
 		//driver.findElement(By.cssSelector(".button-text")).click();
 		// 13 | click | linkText=Edit profile |
 		// 14 | click | id=email-address |
-		driver.findElement(By.id("email-address")).click();
+		//driver.findElement(By.id("email-address")).click();
 		// 15 | type | id=email-address | user12@ual.es
 		driver.findElement(By.id("email-address")).sendKeys(Keys.chord(Keys.CONTROL, "a"));
 		driver.findElement(By.id("email-address")).sendKeys(Keys.chord(Keys.DELETE));
 
-		driver.findElement(By.id("email-address")).sendKeys("ual12@ual.es");
+		driver.findElement(By.id("email-address")).sendKeys("ual22@ual.es");
 		// 16 | click | css=.button-text |
 		driver.findElement(By.cssSelector(".button-text")).click();
 		
-		System.out.println("W2");
-		/////////////////
 		// 17 | click | linkText=Change password |
 		
 		// 39 | mouseOut | css=.ajax-button |
 		// 40 | click | id=header-account-menu-link |
 		{
 			WebDriverWait wait = new WebDriverWait(driver, 30);
-			wait.until(ExpectedConditions.elementToBeClickable(By.id("header-account-menu-link")));
-		}
-		driver.findElement(By.id("header-account-menu-link")).click();
-		{
-			WebDriverWait wait = new WebDriverWait(driver, 30);
 			wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Sign out")));
 		}
+		try {
+	        Thread.sleep(1000);
+	      } catch (InterruptedException e) {
+	        e.printStackTrace();
+	      }
 		driver.findElement(By.linkText("Sign out")).click();
 		{
 			WebDriverWait wait = new WebDriverWait(driver, 30);
 			wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Log in")));
 		}
-		System.out.println("W3");
+		try {
+	        Thread.sleep(1000);
+	      } catch (InterruptedException e) {
+	        e.printStackTrace();
+	      }
 		driver.findElement(By.linkText("Log in")).click();
+		{
+			WebDriverWait wait = new WebDriverWait(driver, 30);
+			wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".form-group:nth-child(1) > .form-control")));
+		}
+		try {
+	        Thread.sleep(1000);
+	      } catch (InterruptedException e) {
+	        e.printStackTrace();
+	      }
 		// 4 | click | css=.form-group:nth-child(1) > .form-control |
 		//driver.findElement(By.cssSelector(".form-group:nth-child(1) > .form-control")).click();
 		// 5 | type | css=.form-group:nth-child(1) > .form-control | user1@ual.es
-		driver.findElement(By.cssSelector(".form-group:nth-child(1) > .form-control")).sendKeys("ual12@ual.es");
+		driver.findElement(By.cssSelector(".form-group:nth-child(1) > .form-control")).sendKeys("ual22@ual.es");
 		// 6 | type | css=.form-group:nth-child(2) > .form-control | user123
 		driver.findElement(By.cssSelector(".form-group:nth-child(2) > .form-control")).sendKeys("ual123");
 		// 7 | click | css=.button-text |
@@ -143,44 +185,49 @@ public class EditarperfilCCTest {
 		// 8 | click | id=header-account-menu-link |
 		{
 			WebDriverWait wait = new WebDriverWait(driver, 30);
-			wait.until(ExpectedConditions.elementToBeClickable(By.id("header-account-menu-link")));
+			wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Account Settings")));
 		}
-		driver.findElement(By.id("header-account-menu-link")).click();
-		{
-			WebDriverWait wait = new WebDriverWait(driver, 30);
-			wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Settings")));
-		}
+		try {
+	        Thread.sleep(1000);
+	      } catch (InterruptedException e) {
+	        e.printStackTrace();
+	      }
 		// 9 | click | linkText=Settings |
-		driver.findElement(By.linkText("Settings")).click();
+		driver.findElement(By.linkText("Account Settings")).click();
 		// 10 | click | linkText=Edit profile |
 		{
 			WebDriverWait wait = new WebDriverWait(driver, 30);
 			wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Edit profile")));
 		}
+		try {
+	        Thread.sleep(1000);
+	      } catch (InterruptedException e) {
+	        e.printStackTrace();
+	      }
 		driver.findElement(By.linkText("Edit profile")).click();
 		// 11 | type | id=full-name | user1234
 		driver.findElement(By.id("full-name")).sendKeys(Keys.chord(Keys.CONTROL, "a"));
 		driver.findElement(By.id("full-name")).sendKeys(Keys.chord(Keys.DELETE));
-		driver.findElement(By.id("full-name")).sendKeys("ual1");
+		driver.findElement(By.id("full-name")).sendKeys("ual2");
 		// 14 | click | id=email-address |
 		driver.findElement(By.id("email-address")).click();
 		// 15 | type | id=email-address | user12@ual.es
 		driver.findElement(By.id("email-address")).sendKeys(Keys.chord(Keys.CONTROL, "a"));
 		driver.findElement(By.id("email-address")).sendKeys(Keys.chord(Keys.DELETE));
 
-		driver.findElement(By.id("email-address")).sendKeys("ual1@ual.es");
+		driver.findElement(By.id("email-address")).sendKeys("ual2@ual.es");
 		// 16 | click | css=.button-text |
 		System.out.println("W4");
 		driver.findElement(By.cssSelector(".button-text")).click();
 		{
 			WebDriverWait wait = new WebDriverWait(driver, 30);
-			wait.until(ExpectedConditions.elementToBeClickable(By.id("header-account-menu-link")));
-		}
-		driver.findElement(By.id("header-account-menu-link")).click();
-		{
-			WebDriverWait wait = new WebDriverWait(driver, 30);
 			wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Sign out")));
 		}
+		try {
+	        Thread.sleep(1000);
+	      } catch (InterruptedException e) {
+	        e.printStackTrace();
+	      }
 		driver.findElement(By.linkText("Sign out")).click();
 	}
 }

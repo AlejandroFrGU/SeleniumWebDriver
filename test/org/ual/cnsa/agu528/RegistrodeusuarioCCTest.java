@@ -31,12 +31,15 @@ public class RegistrodeusuarioCCTest {
   JavascriptExecutor js;
   @Before
   public void setUp() {
-	  //System.setProperty("webdriver.gecko.driver", "drivers/geckodriver.exe"); 
-		//System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
-    //driver = new ChromeDriver();
-	  FirefoxOptions firefoxOptions = new FirefoxOptions(); 
-	    firefoxOptions.setHeadless(true); 
-	    driver = new FirefoxDriver(firefoxOptions);
+		//System.setProperty("webdriver.gecko.driver", "drivers/geckodriver.exe");
+		// System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
+		// driver = new ChromeDriver();
+		FirefoxOptions firefoxOptions = new FirefoxOptions();
+		firefoxOptions.setHeadless(true);
+		// firefoxOptions.addArguments("--headless");
+		firefoxOptions.addArguments("--width=426");
+		firefoxOptions.addArguments("--height=728");
+		driver = new FirefoxDriver(firefoxOptions);
     js = (JavascriptExecutor) driver;
     vars = new HashMap<String, Object>();
   }
@@ -51,10 +54,28 @@ public class RegistrodeusuarioCCTest {
     // 1 | open | / | 
     driver.get("http://webapps.alejandrogacles.tech:8080//");
     // 2 | setWindowSize | 1050x708 | 
-    driver.manage().window().setSize(new Dimension(1050, 708));
+    driver.manage().window().setSize(new Dimension(426, 708));
     // 3 | click | linkText=Sign up | 
+    {
+		WebDriverWait wait = new WebDriverWait(driver, 30);
+		wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Sign up")));
+	}
+	try {
+		Thread.sleep(1000);
+	} catch (InterruptedException e) {
+		e.printStackTrace();
+	}
     driver.findElement(By.linkText("Sign up")).click();
     // 4 | click | id=full-name | 
+    {
+		WebDriverWait wait = new WebDriverWait(driver, 30);
+		wait.until(ExpectedConditions.elementToBeClickable(By.id("full-name")));
+	}
+	try {
+		Thread.sleep(1000);
+	} catch (InterruptedException e) {
+		e.printStackTrace();
+	}
     driver.findElement(By.id("full-name")).click();
     // 5 | executeScript | return "ual-" + Math.floor(Math.random()*1500000) | namerandom
     vars.put("namerandom", js.executeScript("return \"ual-\" + Math.floor(Math.random()*1500000)"));
@@ -82,13 +103,16 @@ public class RegistrodeusuarioCCTest {
     driver.findElement(By.id("terms-agreement")).click();
     // 17 | click | css=.ajax-button | 
     driver.findElement(By.cssSelector(".ajax-button")).click();
-    try {
-        Thread.sleep(1000);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
-    // 18 | click | id=header-account-menu-link | 
-    driver.findElement(By.id("header-account-menu-link")).click();
+
+    {
+		WebDriverWait wait = new WebDriverWait(driver, 30);
+		wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Sign out")));
+	}
+	try {
+		Thread.sleep(1000);
+	} catch (InterruptedException e) {
+		e.printStackTrace();
+	}
     // 19 | click | linkText=Sign out | 
     driver.findElement(By.linkText("Sign out")).click();
   }
